@@ -1,4 +1,4 @@
 const Order = () => {
-  return <div>Food</div>;
+  return <div>Order</div>;
 };
 export default Order;

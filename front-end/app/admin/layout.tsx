@@ -8,9 +8,9 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
-import { MenuLogo } from "@/app/images/food_menu_logo";
-import { Logo } from "@/app/images/logo";
-import { OrderLogo } from "@/app/images/order_logo";
+import { MenuLogo } from "@/app/assets/food_menu_logo";
+import { Logo } from "@/app/assets/logo";
+import { OrderLogo } from "@/app/assets/order_logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -36,40 +36,32 @@ export default function RootLayout({
           </div>
           <SidebarContent className=" flex items-center">
             <SidebarGroup />
-            <Link href="/food">
+            <Link href="/admin/food">
               <Button
-                className={`w-[165px] cursor-pointer
-                     ${currentPath === "/food" ? "bg-red-400" : null}`}
+                className={`w-[165px] cursor-pointer hover:not-focus
+                     ${currentPath === "/admin/food" ? "bg-red-400" : null}`}
               >
                 <MenuLogo />
                 Food menu
               </Button>
             </Link>
-            <Link href="/order">
+            <Link href="/admin/order">
               <Button
                 className={`w-[165px] cursor-pointer ${
-                  currentPath === "/order" ? " bg-red-400" : null
+                  currentPath === "/admin/order" ? " bg-red-400" : null
                 }`}
               >
                 <OrderLogo />
                 <p>Orders</p>
               </Button>
             </Link>
-            {/* <img src="/images/avatar_image.png" alt="" /> */}
             <SidebarGroup />
           </SidebarContent>
           <SidebarFooter />
         </Sidebar>
-        <div className="flex flex-col">
-          <div className="flex justify-between">
-            <div></div>
-            <div>
-              <img
-                className="w-full h-9 "
-                src="/images/avatar_image.png"
-                alt=""
-              />
-            </div>
+        <div className="flex flex-col w-full px-7">
+          <div className="flex justify-end items-center py-7">
+            <img className="w-9 h-9 " src="/images/avatar_image.png" alt="" />
           </div>
           <div className="w-full bg-amber-300 h-full">{children}</div>
         </div>
