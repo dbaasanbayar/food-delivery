@@ -8,9 +8,9 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
-import { MenuLogo } from "@/app/assets/food_menu_logo";
-import { Logo } from "@/app/assets/logo";
-import { OrderLogo } from "@/app/assets/order_logo";
+import { MenuLogo } from "@/app/_assets/food_menu_logo";
+import { Logo } from "@/app/_assets/logo";
+import { OrderLogo } from "@/app/_assets/order_logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
