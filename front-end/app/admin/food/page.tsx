@@ -1,12 +1,21 @@
-import { DishButton } from "@/app/_component/dish_button";
+import { AddDishes, Dish } from "@/app/_component/dish_button";
 const Food = () => {
   return (
-    <div className="flex flex-col p-6 h-[174px] bg-blue-400">
-      <h1 className="pb-4 text-[#09090B] font-inter text-xl font-semibold">
-        Dishes category
-      </h1>
-      <div className="flex gap-2 flex-wrap">
-        <DishButton />
+    <div>
+      <div className="flex flex-col p-6 h-[174px]">
+        <h1 className="pb-4 text-[#09090B] font-inter text-xl font-semibold">
+          Dishes category
+        </h1>
+        <div className="flex gap-2 flex-wrap">
+          <Dish />
+        </div>
+      </div>
+      <div className="p-4 border">
+        <h1>Appetizers</h1>
+        <div className="h-[239px] w-[225px] flex items-center justify-center flex-col border border-red-300 border-dashed">
+          <AddDishes />
+          <h1>Add new Dish to Appetizers</h1>
+        </div>
       </div>
     </div>
   );

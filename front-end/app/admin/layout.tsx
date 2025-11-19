@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <div className="flex">
       <SidebarProvider className="w-full bg-[#F4F4F5] flex">
-        <Sidebar className="bg-amber-200">
+        <Sidebar>
           <SidebarHeader className="flex gap-2 items-center justify-center" />
           <div className="flex gap-2 items-center justify-center">
             <Logo />
@@ -38,8 +38,9 @@ export default function RootLayout({
             <SidebarGroup />
             <Link href="/admin/food">
               <Button
-                className={`w-[165px] cursor-pointer hover:not-focus
-                     ${currentPath === "/admin/food" ? "bg-red-400" : null}`}
+                className={`w-[165px] cursor-pointer hover:not-focus ${
+                  currentPath === "/admin/food" ? "bg-red-400" : null
+                }`}
               >
                 <MenuLogo />
                 Food menu
@@ -63,7 +64,7 @@ export default function RootLayout({
           <div className="flex justify-end items-center py-7">
             <img className="w-9 h-9 " src="/images/avatar_image.png" alt="" />
           </div>
-          <div className="w-full bg-amber-300 h-full">{children}</div>
+          <div className="w-full h-full">{children}</div>
         </div>
       </SidebarProvider>
     </div>
