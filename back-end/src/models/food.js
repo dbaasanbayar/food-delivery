@@ -6,6 +6,7 @@ const foodSchemas = new Schema(
     price: { type: Number },
     image: { type: String },
     ingredients: { type: String },
+    category: { type: Schema.Types.ObjectId, ref: "category" },
   },
   {
     timestamps: true,
@@ -13,13 +14,3 @@ const foodSchemas = new Schema(
 );
 
 export const FoodModel = model("food", foodSchemas);
-
-// Food	Type
-// _id	ObjectId
-// foodName	String
-// price	Number
-// image	String
-// ingredients	String
-// category	ObjectId
-// createdAt	Date
-// updatedAt	Date

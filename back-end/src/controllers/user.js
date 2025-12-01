@@ -5,11 +5,6 @@ import { UserModel } from "../models/user.js";
 export const signUp = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const token = jwt.sign(
-      { username: req.body.email },
-      { password: req.body.password }
-    );
-    console.log(token, "token");
 
     const hashedPassword = await bcrypt.hashSync(password, 1);
     console.log("old password", password);
@@ -19,6 +14,7 @@ export const signUp = async (req, res) => {
       email,
       password: hashedPassword,
     });
+    console.log(user, "user details");
     res.status(200).send({ message: "Success", data: user });
   } catch (error) {
     console.log("error", error);
@@ -26,10 +22,22 @@ export const signUp = async (req, res) => {
   }
 };
 
-export const SignIn = async (req, res) => {
+export const signIn = async (req, res) => {
   try {
-    const result = await UserModel.find(req.params.id);
-    const token = jwt.sign(result);
-    console.log();
-  } catch (error) {}
+    const result = await UserModel.findById();
+    const token = jwt.sign(
+      { name: "baasanabayar", gender: "male" },
+      "secret-key",
+      {
+        expiresIn: "1h",
+      }
+    );
+    console.log(result);
+    console.log(token, "token");
+
+    res.send({ ...result, token });
+  } catch (error) {
+    console.error(error);
+    res.send(error);
+  }
 };

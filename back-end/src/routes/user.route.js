@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { signUp } from "../controllers/user.js";
+import { signIn, signUp } from "../controllers/user.js";
+import { verifyToken } from "../middleware/auth.js";
 
 export const userRouter = Router();
 
-userRouter.post("/", signUp);
+userRouter.get("/", verifyToken, signIn).post("/", signUp);

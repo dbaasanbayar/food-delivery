@@ -6,10 +6,12 @@ export const createFood = async (req, res) => {
   try {
     const result = await FoodModel.create(body);
     console.log(result, "result");
-    res.status(200).send({ message: "amjilttai", data: result });
+    res
+      .status(200)
+      .send({ message: "successfully delivered, amjilttai", data: result });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ message: "aldaa garlaa", data: null });
+    res.status(500).send({ message: "error, aldaa garlaa", data: null });
   }
 };
 
@@ -23,5 +25,3 @@ export const getFood = async (req, res) => {
     res.send(error);
   }
 };
-
-// export const deleteFood =
