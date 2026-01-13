@@ -8,6 +8,7 @@ const userSchemas = new Schema(
     address: { type: String },
     role: { type: String, enum: ["USER", "ADMIN"] },
     orderedFoods: { type: [Schema.ObjectId] },
+    // ttl: { type: Date }, // not sure to add here
     isVerified: { type: Boolean },
   },
   {

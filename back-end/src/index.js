@@ -1,4 +1,4 @@
-import express from "express";
+import express, { request, response } from "express";
 import bodyParser from "body-parser";
 import { configDotenv } from "dotenv";
 import { connectDB } from "./database/db.js";
@@ -8,17 +8,16 @@ import { userRouter } from "./routes/user.route.js";
 
 configDotenv();
 
-const port = process.env.PORT;
+const port = process.env.PORT || 4000;
 
 const app = express();
 
 app.use(bodyParser.json());
 
 app.use("/food", foodRouter);
-
 app.use("/user", userRouter);
 
 app.listen(port, () => {
   connectDB();
-  console.log(chalk.green(`server is running ${port}`));
+  console.log(chalk.green(`server is running at http://localhost:${port}`));
 });

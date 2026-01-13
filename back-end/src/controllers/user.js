@@ -26,7 +26,7 @@ export const signIn = async (req, res) => {
   try {
     const result = await UserModel.findById();
     const token = jwt.sign(
-      { name: "baasanabayar", gender: "male" },
+      { name: "baasanbayar", gender: "male" },
       "secret-key",
       {
         expiresIn: "1h",
