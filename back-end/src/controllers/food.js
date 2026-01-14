@@ -2,13 +2,11 @@ import { FoodModel } from "../models/food.js";
 
 export const createFood = async (req, res) => {
   const { body } = req;
-  console.log(body);
   try {
-    const result = await FoodModel.create(body);
-    console.log(result, "Creating");
+    const newFood = await FoodModel.create(body);
     res
       .status(200)
-      .send({ message: "successfully delivered, amjilttai", data: result });
+      .send({ message: "successfully delivered, amjilttai", data: newFood });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "error, aldaa garlaa", data: null });
@@ -17,9 +15,8 @@ export const createFood = async (req, res) => {
 
 export const getFood = async (req, res) => {
   try {
-    const result = await FoodModel.find();
-    console.log(result, "Getting data");
-    res.send(result);
+    const foods = await FoodModel.find().populate("categoryId", "name");
+    res.status(200).json({ foods });
   } catch (error) {
     console.error(error);
     res.status(500).send("Something went wrong");
@@ -49,7 +46,10 @@ export const updateFoodPatch = async (req, res) => {
   const { body } = req;
 
   try {
-    const result = await FoodModel.findByIdAndUpdate(id, body, { new: true });
+    const result = await FoodModel.findByIdAndUpdate(id, body, {
+      new: true,
+      runValidators: true,
+    });
 
     if (!result) {
       return res.status(404).send({ message: "Food not found" });
