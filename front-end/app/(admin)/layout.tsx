@@ -36,20 +36,20 @@ export default function RootLayout({
           </div>
           <SidebarContent className=" flex items-center">
             <SidebarGroup />
-            <Link href="/admin/food">
+            <Link href="/food">
               <Button
                 className={`w-[165px] cursor-pointer hover:not-focus ${
-                  currentPath === "/admin/food" ? "bg-red-400" : null
+                  currentPath === "/food" ? "bg-red-400" : null
                 }`}
               >
                 <MenuLogo />
                 Food menu
               </Button>
             </Link>
-            <Link href="/admin/order">
+            <Link href="/order">
               <Button
                 className={`w-[165px] cursor-pointer ${
-                  currentPath === "/admin/order" ? " bg-red-400" : null
+                  currentPath === "/order" ? " bg-red-400" : null
                 }`}
               >
                 <OrderLogo />

@@ -1,7 +1,7 @@
 export type CategoryType = {
   name: string;
   number: number;
-  id: number;
+  _id: string;
 };
 
 export type DishType = {
@@ -16,3 +16,5 @@ export type ClientType = {
   text: string;
   type: string;
 };
+
+export const baseUrl = process.env.NEXT_PUBLIC_API_URL;

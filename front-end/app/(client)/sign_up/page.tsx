@@ -37,7 +37,7 @@ export default function SignUp() {
         </div>
       </div>
       <img
-        className="ml-7 m-5 w-[68%] rounded-2xl h-[904px]"
+        className="ml-7 m-5 w-full max-w-full rounded-2xl aspect-square object-contain"
         src="/images/entry_logo.jpg"
         alt="entry_logo"
       />

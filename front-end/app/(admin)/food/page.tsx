@@ -1,4 +1,5 @@
-import { AddDishes, Dish } from "@/app/_component/dish_button";
+import { AddDishes } from "@/app/_component/add_dishes";
+import { DishCategory } from "@/app/_component/dish_category";
 const Food = () => {
   return (
     <div>
@@ -7,7 +8,7 @@ const Food = () => {
           Dishes category
         </h1>
         <div className="flex gap-2 flex-wrap">
-          <Dish />
+          <DishCategory />
         </div>
       </div>
       <div className="p-4 border">
