@@ -6,7 +6,7 @@ export const createFood = async (req, res) => {
     const newFood = await FoodModel.create(body);
     res
       .status(200)
-      .send({ message: "successfully delivered, amjilttai", data: newFood });
+      .send({ message: "successfully created, amjilttai", data: newFood });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "error, aldaa garlaa", data: null });
