@@ -7,9 +7,10 @@ export type CategoryType = {
 export type DishType = {
   name: string;
   price: number;
-  id: number;
+  _id: number;
   ingredients: string;
   image: string;
+  categoryId: string;
 };
 
 export type ClientType = {
