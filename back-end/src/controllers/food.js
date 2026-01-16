@@ -7,8 +7,9 @@ export const createFood = async (req, res) => {
     res
       .status(200)
       .send({ message: "successfully created, amjilttai", data: newFood });
+    console.log(req.body);
   } catch (error) {
-    console.error(error);
+    console.error("Create food error", error.message);
     res.status(500).send({ message: "error, aldaa garlaa", data: null });
   }
 };
@@ -16,7 +17,8 @@ export const createFood = async (req, res) => {
 export const getFood = async (req, res) => {
   try {
     const foods = await FoodModel.find().populate("categoryId", "name");
-    res.status(200).json({ foods });
+    console.log({ foods });
+    res.status(200).json(foods);
   } catch (error) {
     console.error(error);
     res.status(500).send("Something went wrong");
