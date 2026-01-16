@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Dialog,
   DialogContent,
@@ -11,14 +13,35 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ImageInputIcon } from "@/app/_assets/input_image_icon";
 import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import { baseUrl, CreateDishType } from "@/lib/type";
 
 export const AddDishes = () => {
+  const [newFood, setNewFood] = useState<CreateDishType>({
+    name: "",
+    price: 0,
+    ingredients: "",
+  });
+
+  const AddFood = async () => {
+    try {
+      await fetch(`${baseUrl}/food`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newFood),
+      });
+      console.log("Food added successfully");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="rounded-full w-10 h-10 text-white bg-[#EF4444] hover:bg-[#dc2626]"
+          className="rounded-full w-10 h-10 text-white bg-[#EF4444] hover:bg-gray-200"
         >
           +
         </Button>
@@ -34,16 +57,34 @@ export const AddDishes = () => {
           <div className="flex gap-4">
             <div className="flex-1 space-y-2">
               <Label htmlFor="name">Food name</Label>
-              <Input id="name" placeholder="Type food name" />
+              <Input
+                onChange={(e) =>
+                  setNewFood((prev) => ({ ...prev, name: e.target.value }))
+                }
+                id="name"
+                placeholder="Type food name"
+              />
             </div>
             <div className="w-[120px] space-y-2">
               <Label htmlFor="price">Food price</Label>
-              <Input id="price" placeholder="Price" />
+              <Input
+                onChange={(e) =>
+                  setNewFood((prev) => ({
+                    ...prev,
+                    price: Number(e.target.value),
+                  }))
+                }
+                id="price"
+                placeholder="Price"
+              />
             </div>
           </div>
           <div className="space-y-2">
             <Label htmlFor="ingredients">Ingredients</Label>
             <Input
+              onChange={(e) =>
+                setNewFood((prev) => ({ ...prev, ingredients: e.target.value }))
+              }
               id="ingredients"
               placeholder="List ingredients"
               className="h-[74px]"
@@ -63,9 +104,8 @@ export const AddDishes = () => {
             </div>
           </div>
         </div>
-
         <DialogFooter>
-          <Button type="submit" className="w-full sm:w-auto">
+          <Button type="submit" onClick={AddFood} className="w-full sm:w-auto">
             Add Dish
           </Button>
         </DialogFooter>

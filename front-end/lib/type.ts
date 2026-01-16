@@ -5,12 +5,20 @@ export type CategoryType = {
 };
 
 export type DishType = {
+  _id: string;
   name: string;
   price: number;
-  _id: number;
   ingredients: string;
-  image: string;
-  categoryId: string;
+  image?: string;
+  categoryId?: string;
+};
+
+export type CreateDishType = {
+  name: string;
+  price: number;
+  ingredients: string;
+  image?: string;
+  categoryId?: string;
 };
 
 export type ClientType = {

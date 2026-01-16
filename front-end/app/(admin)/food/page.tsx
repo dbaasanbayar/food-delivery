@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 const Food = () => {
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const [getFoods, setGetFoods] = useState<DishType[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -19,14 +21,14 @@ const Food = () => {
       }
     };
     fetchCategories();
-  }, [baseUrl]);
+  }, []);
 
   useEffect(() => {
     const fetchFoods = async () => {
       try {
         const response = await fetch(`${baseUrl}/food`);
         const data = await response.json();
-        console.log("Get food data:", data);
+        console.log("data awah", data);
         setGetFoods(data);
       } catch (error) {
         console.error("Fetch failed", error);
@@ -34,19 +36,24 @@ const Food = () => {
     };
     fetchFoods();
   }, []);
+
+  const filteredFoods = selectedCategory
+    ? getFoods.filter((food) => food.categoryId === selectedCategory)
+    : getFoods;
+
   return (
     <FoodContext.Provider value={categories}>
-      <div className="flex flex-col gap-10">
-        <div className="flex flex-col p-6 h-full w-full bg-white">
-          <h1 className="pb-4 text-[#09090B] font-inter text-xl font-semibold">
+      <div className="min-h-screen flex flex-col gap-5 bg-gray-100 pb-12">
+        <div className="bg-white px-4 py-6 md:px-6 lg:px-8">
+          <h1 className="mb-5 text-xl font-semibold text-gray-900 md:text-2xl">
             Dishes category
           </h1>
-          <div className="flex gap-2 flex-wrap">
-            <DishCategory />
+          <div className="overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300">
+            <DishCategory onSelectedCategory={setSelectedCategory} />
           </div>
         </div>
-        <div className="bg-white p-6">
-          <Dishes getFoods={getFoods} />
+        <div className="px-4 py-6 md:px-6 bg-white lg:px-8">
+          <Dishes getFoods={filteredFoods} />
         </div>
       </div>
     </FoodContext.Provider>

@@ -27,12 +27,12 @@ export const FoodCard = ({ food }: { food: DishType }) => {
               alt="Delicious food"
             />
             <div className="absolute bottom-2 bg-white overflow-hidden rounded-full right-2">
-              <FoodEditButton />
+              <FoodEditButton food={food} />
             </div>
           </div>
           <div className="flex justify-between">
-            <span>{name}</span>
-            <span>{price}$</span>
+            <span className="text-red-600">{name}</span>
+            <span className="text-green-500">{price}$</span>
           </div>
           <span>{ingredients}</span>
         </div>

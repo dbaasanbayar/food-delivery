@@ -1,24 +1,35 @@
-import { CategoryType } from "@/lib/type";
 import { AddCategories } from "./add_catergories";
 import { useContext } from "react";
 import { FoodContext } from "../contexts/food_context";
+import { Button } from "@/components/ui/button";
 
-export const DishCategory = () => {
+type Props = {
+  onSelectedCategory: (id: string | null) => void;
+};
+
+export const DishCategory = ({ onSelectedCategory }: Props) => {
   const categories = useContext(FoodContext);
   return (
-    <div className="flex items-center gap-2 flex-wrap">
-      {categories.map((category) => {
-        return <Category category={category} key={category._id} />;
-      })}
+    <div className="flex gap-3 flex-wrap">
+      <Button
+        onClick={() => onSelectedCategory(null)}
+        className="bg-white text-black border hover:text-white"
+      >
+        All Dishes
+      </Button>
+
+      {categories.map((category) => (
+        <Button
+          onClick={() => onSelectedCategory(category._id)}
+          className="bg-white text-black border hover:text-white"
+          key={category._id}
+        >
+          {category.name}
+        </Button>
+      ))}
       <div>
         <AddCategories />
       </div>
     </div>
   );
 };
-
-export function Category({ category }: { category: CategoryType }) {
-  const { name } = category;
-
-  return <div className="border rounded-full px-4 p-2 bg-white">{name}</div>;
-}
