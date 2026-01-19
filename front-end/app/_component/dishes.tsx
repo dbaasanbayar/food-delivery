@@ -20,6 +20,7 @@ export const Dishes = ({ getFoods }: { getFoods: DishType[] }) => {
         <div className="flex justify-center items-center border-2 border-red-400 rounded-2xl border-dashed">
           <AddDishes />
         </div>
+
         {getFoods.map((food) => (
           <FoodCard key={food._id} food={food} />
         ))}

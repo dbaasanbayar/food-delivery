@@ -34,6 +34,7 @@ export const FoodEditButton = ({ food }: { food: DishType }) => {
     name: food.name,
     price: food.price,
     ingredients: food.ingredients,
+    categoryId: food.categoryId,
   });
 
   useEffect(() => {
@@ -41,6 +42,7 @@ export const FoodEditButton = ({ food }: { food: DishType }) => {
       name: food.name,
       price: food.price,
       ingredients: food.ingredients,
+      categoryId: food.categoryId,
     });
   }, [food]);
 
@@ -106,7 +108,7 @@ export const FoodEditButton = ({ food }: { food: DishType }) => {
           <div className="space-y-2">
             <Label htmlFor="category">Dish category</Label>
             <Select
-              // value={form.categoryId}
+              value={form.categoryId}
               onValueChange={(value) =>
                 setForm((prev) => ({ ...prev, categoryId: value }))
               }

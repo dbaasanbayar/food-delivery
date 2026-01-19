@@ -5,9 +5,13 @@ import { Button } from "@/components/ui/button";
 
 type Props = {
   onSelectedCategory: (id: string | null) => void;
+  selectedCategory: string | null;
 };
 
-export const DishCategory = ({ onSelectedCategory }: Props) => {
+export const DishCategory = ({
+  onSelectedCategory,
+  selectedCategory,
+}: Props) => {
   const categories = useContext(FoodContext);
   return (
     <div className="flex gap-3 flex-wrap">
@@ -17,10 +21,13 @@ export const DishCategory = ({ onSelectedCategory }: Props) => {
       >
         All Dishes
       </Button>
-
       {categories.map((category) => (
         <Button
-          onClick={() => onSelectedCategory(category._id)}
+          onClick={() =>
+            onSelectedCategory(
+              selectedCategory === category._id ? null : category._id
+            )
+          }
           className="bg-white text-black border hover:text-white"
           key={category._id}
         >

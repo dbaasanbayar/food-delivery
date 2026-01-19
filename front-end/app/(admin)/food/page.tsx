@@ -26,20 +26,21 @@ const Food = () => {
   useEffect(() => {
     const fetchFoods = async () => {
       try {
-        const response = await fetch(`${baseUrl}/food`);
+        const url = selectedCategory
+          ? `${baseUrl}/food/${selectedCategory}`
+          : `${baseUrl}/food`;
+
+        const response = await fetch(url);
         const data = await response.json();
-        console.log("data awah", data);
+        console.log("foods awah", data);
         setGetFoods(data);
       } catch (error) {
         console.error("Fetch failed", error);
       }
     };
-    fetchFoods();
-  }, []);
 
-  const filteredFoods = selectedCategory
-    ? getFoods.filter((food) => food.categoryId === selectedCategory)
-    : getFoods;
+    fetchFoods();
+  }, [selectedCategory]);
 
   return (
     <FoodContext.Provider value={categories}>
@@ -49,11 +50,14 @@ const Food = () => {
             Dishes category
           </h1>
           <div className="overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300">
-            <DishCategory onSelectedCategory={setSelectedCategory} />
+            <DishCategory
+              onSelectedCategory={setSelectedCategory}
+              selectedCategory={selectedCategory}
+            />
           </div>
         </div>
         <div className="px-4 py-6 md:px-6 bg-white lg:px-8">
-          <Dishes getFoods={filteredFoods} />
+          <Dishes getFoods={getFoods} />
         </div>
       </div>
     </FoodContext.Provider>
