@@ -9,6 +9,7 @@ import {
 
 export const foodRouter = Router();
 
+foodRouter.get("/:categoryId", getFood);
 foodRouter.get("/", getFood);
 foodRouter.post("/", createFood);
 foodRouter.put("/:id", updateFoodPut);
