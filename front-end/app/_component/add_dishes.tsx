@@ -14,22 +14,42 @@ import { Input } from "@/components/ui/input";
 import { ImageInputIcon } from "@/app/_assets/input_image_icon";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { baseUrl, CreateDishType } from "@/lib/type";
+import { baseUrl, CategoryType, CreateDishType } from "@/lib/type";
 
 export const AddDishes = () => {
   const [newFood, setNewFood] = useState<CreateDishType>({
     name: "",
     price: 0,
     ingredients: "",
+    image: "",
+    // categoryId: "",
   });
+  const [file, setFile] = useState<File | null>(null);
 
   const AddFood = async () => {
     try {
+      const formData = new FormData();
+      formData.append("name", newFood.name);
+      formData.append("price", newFood.price.toString());
+      formData.append("ingredients", newFood.ingredients);
+      // formData.append("categoryId", String(newFood.categoryId));
+
+      if (file) formData.append("image", file);
+
       await fetch(`${baseUrl}/food`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newFood),
+        // headers: { "Content-Type": "application/json" },
+        body: formData,
       });
+      setNewFood({
+        name: "",
+        price: 0,
+        ingredients: "",
+        image: "",
+        categoryId: "",
+      });
+      console.log("hool ireh", file);
+      setFile(null);
       console.log("Food added successfully");
     } catch (error) {
       console.error(error);
@@ -90,18 +110,51 @@ export const AddDishes = () => {
               className="h-[74px]"
             />
           </div>
+          {/* <div className="space-y-2">
+            <Label>Category</Label>
+            <select
+              className="w-full border rounded-md p-2"
+              value={newFood.categoryId}
+              onChange={(e) =>
+                setNewFood((prev) => ({
+                  ...prev,
+                  categoryId: e.target.value,
+                }))
+              }
+            >
+              <option value="">Select category</option>
+              {categories.map((cat) => (
+                <option key={cat._id} value={cat._id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+          </div> */}
+
           <div className="space-y-2">
             <Label>Food image</Label>
-            <div className="w-full bg-gray-50 border-2 border-dashed border-gray-200 h-[138px] flex justify-center rounded-xl items-center cursor-pointer hover:bg-gray-100 transition-colors">
+            <div
+              className="w-full bg-gray-50 border-2 border-dashed border-gray-200 h-[138px] flex justify-center rounded-xl items-center cursor-pointer hover:bg-gray-100 transition-colors"
+              onClick={() => document.getElementById("imageInput")?.click()}
+            >
               <div className="flex flex-col items-center gap-2">
                 <span className="text-orange-400 text-3xl">
                   <ImageInputIcon />
                 </span>
                 <span className="text-sm text-gray-500 text-center px-4">
-                  Choose a file or drag & drop it here
+                  {file ? file.name : "Choose a file or drag & drop it here"}
                 </span>
               </div>
             </div>
+            <input
+              id="imageInput"
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => {
+                if (e.target.files?.[0]) setFile(e.target.files[0]);
+              }}
+            />
           </div>
         </div>
         <DialogFooter>

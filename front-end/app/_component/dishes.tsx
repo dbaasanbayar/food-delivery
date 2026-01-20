@@ -1,4 +1,4 @@
-import { DishType } from "@/lib/type";
+import { CategoryType, DishType } from "@/lib/type";
 import { AddDishes } from "./add_dishes";
 import { FoodCard } from "./food-card";
 

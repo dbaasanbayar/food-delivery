@@ -8,10 +8,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { FoodEditButton } from "../_assets/food_edit_button";
-import { DishType } from "@/lib/type";
+import { baseUrl, DishType } from "@/lib/type";
 
 export const FoodCard = ({ food }: { food: DishType }) => {
-  const { name, price, ingredients } = food;
+  const { name, price, ingredients, image } = food;
 
   return (
     <Card
@@ -23,7 +23,7 @@ export const FoodCard = ({ food }: { food: DishType }) => {
           <div className="relative group w-full h-30 overflow-hidden rounded-md">
             <img
               className="w-full h-full object-cover"
-              src="/images/food.png"
+              src={`${baseUrl}${image}`}
               alt="Delicious food"
             />
             <div className="absolute bottom-2 bg-white overflow-hidden rounded-full right-2">
