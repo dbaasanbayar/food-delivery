@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 app.use("/food", foodRouter);
 app.use("/user", userRouter);
 app.use("/category", categoryRouter);
+app.use("/uploads", express.static("uploads"));
 
 app.listen(port, () => {
   connectDB();

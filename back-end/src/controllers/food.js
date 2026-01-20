@@ -1,13 +1,18 @@
 import { FoodModel } from "../models/food.js";
 
 export const createFood = async (req, res) => {
-  const { body } = req;
+  const { name, price, ingredients, categoryId } = req.body || {};
   try {
-    const newFood = await FoodModel.create(body);
+    const newFood = await FoodModel.create({
+      name,
+      price,
+      ingredients,
+      // categoryId,
+      image: req.file ? `/uploads/${req.file?.filename}` : "",
+    });
     res
       .status(200)
       .send({ message: "successfully created, amjilttai", data: newFood });
-    console.log(req.body);
   } catch (error) {
     console.error("Create food error", error.message);
     res.status(500).send({ message: "error, aldaa garlaa", data: null });
@@ -17,7 +22,7 @@ export const createFood = async (req, res) => {
 export const getFood = async (req, res) => {
   try {
     const { categoryId } = req.params;
-    console.log("category id awah", categoryId);
+    // console.log("category id awah", categoryId);
 
     const foods = categoryId
       ? await FoodModel.find({ categoryId }).populate("categoryId")
