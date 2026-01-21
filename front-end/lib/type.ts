@@ -2,6 +2,7 @@ export type CategoryType = {
   name: string;
   number: number;
   _id: string;
+  foods: DishType[];
 };
 
 export type DishType = {
