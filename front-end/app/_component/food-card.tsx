@@ -15,26 +15,30 @@ export const FoodCard = ({ food }: { food: DishType }) => {
 
   return (
     <Card
-      className="w-full
+      className="w-full overflow-hidden hover:shadow-lg transition-shadow
     "
     >
-      <CardContent>
-        <div className="flex flex-col gap-2">
-          <div className="relative group w-full h-30 overflow-hidden rounded-md">
+      <CardContent className="p-3 md:p-4">
+        <div className="flex flex-col gap-3">
+          <div className="relative group w-full aspect-video overflow-hidden rounded-md">
             <img
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               src={`${baseUrl}${image}`}
-              alt="Delicious food"
+              alt={name}
             />
             <div className="absolute bottom-2 bg-white overflow-hidden rounded-full right-2">
               <FoodEditButton food={food} />
             </div>
           </div>
-          <div className="flex justify-between">
-            <span className="text-red-600">{name}</span>
-            <span className="text-green-500">{price}$</span>
+          <div className="flex justify-between items-start">
+            <span className="text-gray-900 text-lg font-semibold leading-tight">
+              {name}
+            </span>
+            <span className="text-green-600 font-bold">{price}$</span>
           </div>
-          <span>{ingredients}</span>
+          <span className="text-sm text-gray-500 line-clamp-2">
+            {ingredients}
+          </span>
         </div>
       </CardContent>
     </Card>
