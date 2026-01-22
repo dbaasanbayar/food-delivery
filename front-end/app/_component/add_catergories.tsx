@@ -41,7 +41,7 @@ export const AddCategories = () => {
       <AlertDialogTrigger asChild>
         <Button
           variant="outline"
-          className={`rounded-[50%] text-white bg-[#EF4444] cursor-pointer`}
+          className="rounded-full w-10 h-10 text-white bg-[#EF4444]"
         >
           +
         </Button>

@@ -7,6 +7,7 @@ import { foodRouter } from "./routes/food.route.js";
 import { userRouter } from "./routes/user.route.js";
 import { categoryRouter } from "./routes/category.routes.js";
 import cors from "cors";
+import { getCategoryFoodRouter } from "./routes/category-food.routes.js";
 configDotenv();
 
 const port = process.env.PORT || 4000;
@@ -19,6 +20,8 @@ app.use(bodyParser.json());
 app.use("/food", foodRouter);
 app.use("/user", userRouter);
 app.use("/category", categoryRouter);
+app.use("/uploads", express.static("uploads"));
+app.use("/categories-with-foods", getCategoryFoodRouter);
 
 app.listen(port, () => {
   connectDB();

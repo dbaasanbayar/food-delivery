@@ -6,7 +6,13 @@ export const foodCategorySchemas = new Schema(
   },
   {
     timestamps: true,
-  }
+    toJSON: { virtuals: true },
+  },
 );
+foodCategorySchemas.virtual("foods", {
+  ref: "food",
+  localField: "_id",
+  foreignField: "categoryId",
+});
 
 export const FoodCategoryModel = model("category", foodCategorySchemas);

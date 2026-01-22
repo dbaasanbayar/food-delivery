@@ -2,14 +2,24 @@ export type CategoryType = {
   name: string;
   number: number;
   _id: string;
+  foods: DishType[];
 };
 
 export type DishType = {
+  _id: string;
   name: string;
   price: number;
-  id: number;
   ingredients: string;
-  image: string;
+  image?: string;
+  categoryId?: string;
+};
+
+export type CreateDishType = {
+  name: string;
+  price: number;
+  ingredients: string;
+  image?: string;
+  categoryId?: string;
 };
 
 export type ClientType = {

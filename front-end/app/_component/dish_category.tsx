@@ -1,49 +1,42 @@
-"use client";
-import { baseUrl, DishType } from "@/lib/type";
-import { CategoryType } from "@/lib/type";
-
-import { useEffect, useState } from "react";
 import { AddCategories } from "./add_catergories";
+import { useContext } from "react";
+import { FoodContext } from "../contexts/food_context";
+import { Button } from "@/components/ui/button";
 
-const foods: DishType[] = [
-  { name: "buuz", price: 10, id: 1, ingredients: "meat, flour", image: "" },
-];
+type Props = {
+  onSelectedCategory: (id: string | null) => void;
+  selectedCategory: string | null;
+};
 
-export const DishCategory = () => {
-  const [categories, setCategories] = useState<CategoryType[]>([]);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch(`${baseUrl}/category`);
-        const data = await response.json();
-        console.log("Category data", data);
-        setCategories(data);
-      } catch (error) {
-        console.error("Fetch failed", error);
-      }
-    };
-    fetchCategories();
-  }, [baseUrl]);
-
+export const DishCategory = ({
+  onSelectedCategory,
+  selectedCategory,
+}: Props) => {
+  const categories = useContext(FoodContext);
   return (
-    <div className="flex items-center gap-2 flex-wrap">
-      {categories.map((category) => {
-        return <Category category={category} key={category._id} />;
-      })}
+    <div className="flex gap-3 flex-wrap">
+      <Button
+        onClick={() => onSelectedCategory(null)}
+        className="bg-white text-black border hover:text-white"
+      >
+        All Dishes
+      </Button>
+      {categories.map((category) => (
+        <Button
+          onClick={() =>
+            onSelectedCategory(
+              selectedCategory === category._id ? null : category._id
+            )
+          }
+          className="bg-white text-black border hover:text-white"
+          key={category._id}
+        >
+          {category.name}
+        </Button>
+      ))}
       <div>
         <AddCategories />
       </div>
     </div>
   );
 };
-
-export function Category({ category }: { category: CategoryType }) {
-  const { name } = category;
-
-  return (
-    <div className="border flex gap-2 rounded-full px-4 py-2 bg-white">
-      {name}
-    </div>
-  );
-}
