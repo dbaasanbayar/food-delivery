@@ -1,4 +1,5 @@
-import { Input } from "@/app/_component/input";
+import { Input } from "@/components/ui/input";
+
 export const StepLogin = () => {
   return (
     <div className="flex flex-col gap-6">
@@ -11,8 +12,10 @@ export const StepLogin = () => {
         </p>
       </div>
       <div className="flex flex-col gap-4">
-        <Input placeholder="Enter your email address" />
-        <Input placeholder="Password" />
+        <Input />
+        <Input />
+        {/* <Input placeholder="Enter your email address" />
+        <Input placeholder="Password" /> */}
       </div>
     </div>
   );
