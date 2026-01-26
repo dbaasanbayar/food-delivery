@@ -9,7 +9,7 @@ const connectionString = process.env.MongoDB;
 export const connectDB = async () => {
   try {
     await mongoose.connect(connectionString);
-    console.log(chalk.blue("DB connected"));
+    console.log(chalk.blue("DB holbogdloo"));
   } catch (error) {
     console.log(error);
   }

@@ -25,5 +25,5 @@ app.use("/categories-with-foods", getCategoryFoodRouter);
 
 app.listen(port, () => {
   connectDB();
-  console.log(chalk.green(`server is running at http://localhost:${port}`));
+  console.log(chalk.green(`server aslaa at http://localhost:${port}`));
 });

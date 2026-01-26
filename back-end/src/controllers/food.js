@@ -23,7 +23,6 @@ export const getFood = async (req, res) => {
   try {
     const { categoryId } = req.params;
     // console.log("category id awah", categoryId);
-
     const foods = categoryId
       ? await FoodModel.find({ categoryId }).populate("categoryId")
       : await FoodModel.find().populate("categoryId");
