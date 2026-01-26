@@ -41,7 +41,7 @@ const Food = () => {
 
     fetchFoods();
   }, [selectedCategory]);
-
+  
   return (
     <FoodContext.Provider value={categories}>
       <div className="min-h-screen flex flex-col gap-5 bg-gray-100 pb-12">
