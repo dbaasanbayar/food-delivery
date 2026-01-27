@@ -6,10 +6,50 @@ import { useState } from "react";
 import { stepOne } from "../../_component/sign_up/Stepone";
 import { stepTwo } from "../../_component/sign_up/StepTwo";
 import Link from "next/link";
+import { baseUrl, ClientType } from "@/lib/type";
+import { error } from "console";
 
 export default function SignUp() {
   const [currenIndex, setCurrentIndex] = useState(0);
-  const CurrentStep = [stepOne, stepTwo][currenIndex];
+  const [formData, setFormData] = useState<ClientType>({
+    email: "",
+    password: "",
+    phoneNumber: "",
+    address: "",
+  });
+  const steps = [stepOne, stepTwo];
+  const CurrentStep = steps[currenIndex];
+
+  const signup = async (data: ClientType) => {
+    const res = await fetch(`${baseUrl}/user/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      throw new Error("Signup failed");
+    }
+    return res.json();
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const result = await signup(formData);
+      console.log("Signup success:", result);
+      localStorage.setItem("token", result.token);
+
+      window.location.href = "/login";
+    } catch (error) {
+      console.error(error);
+      alert("Signup failed");
+    }
+  };
+
+  // const isLastStep = currenIndex === 1;
+
   return (
     <div className="flex flex-col lg:flex-row w-full min-h-screen items-center bg-white">
       <div className="flex flex-col w-full lg:w-1/2 px-6 py-10 justify-center">
@@ -19,9 +59,10 @@ export default function SignUp() {
             currentIndex={currenIndex}
           />
           <div className="w-full">
-            <CurrentStep />
+            <CurrentStep formData={formData} setFormData={setFormData} />
           </div>
           <ButtonForward
+            handleSubmit={handleSubmit}
             setCurrentIndex={setCurrentIndex}
             currentIndex={currenIndex}
           />

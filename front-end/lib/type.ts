@@ -23,8 +23,15 @@ export type CreateDishType = {
 };
 
 export type ClientType = {
-  text: string;
-  type: string;
+  phoneNumber: string;
+  address: string;
+  email: string;
+  password: string;
+};
+
+export type StepProps = {
+  formData: ClientType;
+  setFormData: React.Dispatch<React.SetStateAction<ClientType>>;
 };
 
 export const baseUrl = process.env.NEXT_PUBLIC_API_URL;

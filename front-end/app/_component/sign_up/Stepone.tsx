@@ -1,7 +1,8 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { StepProps } from "@/lib/type";
 
-export const stepOne = () => {
+export const stepOne = ({ formData, setFormData }: StepProps) => {
   return (
     <div className="flex flex-col gap-6 w-full animate-in fade-in duration-500">
       <div>
@@ -17,6 +18,8 @@ export const stepOne = () => {
           Email Address
         </Label> */}
         <Input
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           id="email"
           type="email"
           placeholder="for@example.com"
