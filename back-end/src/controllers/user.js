@@ -42,7 +42,10 @@ export const signIn = async (req, res) => {
       return res.status(401).json({ message: "password does not match" });
     }
 
-    const token = jwt.sign({ email: result.email }, "secret-key", {
+    const token = jwt.sign(
+      { email: result.email,
+        role: result.role,
+      }, "secret-key", {
       expiresIn: "1h",
     });
     console.log(result);

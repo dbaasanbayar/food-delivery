@@ -1,12 +1,14 @@
 import { Schema, model } from "mongoose";
-
-const userSchemas = new Schema(
+import bcrypt from "bcrypt";
+const userSchema = new Schema(
   {
-    email: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     phoneNumber: { type: Number },
     address: { type: String },
-    role: { type: String, enum: ["USER", "ADMIN"] },
+    role: { 
+      type: String, 
+      enum: ["USER", "ADMIN"] },
     orderedFoods: { type: [Schema.ObjectId] },
     // ttl: { type: Date }, // not sure to add here
     isVerified: { type: Boolean },
@@ -16,4 +18,4 @@ const userSchemas = new Schema(
   },
 );
 
-export const UserModel = model("user", userSchemas);
+export const UserModel = model("user", userSchema);

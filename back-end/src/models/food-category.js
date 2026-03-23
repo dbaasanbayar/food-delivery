@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 export const foodCategorySchemas = new Schema(
   {
-    name: { type: String },
+    categoryName: { type: String },
   },
   {
     timestamps: true,
