@@ -14,8 +14,7 @@ const Food = () => {
       try {
         const response = await fetch(`${baseUrl}/category`);
         const data = await response.json();
-        console.log("Category data", data);
-        setCategories(data);
+        setCategories(data.data);
       } catch (error) {
         console.error("Fetch failed", error);
       }
@@ -29,7 +28,7 @@ const Food = () => {
         const url = selectedCategory
           ? `${baseUrl}/food/${selectedCategory}`
           : `${baseUrl}/food`;
-
+          
         const response = await fetch(url);
         const data = await response.json();
         console.log("foods awah", data);
@@ -38,7 +37,6 @@ const Food = () => {
         console.error("Fetch failed", error);
       }
     };
-
     fetchFoods();
   }, [selectedCategory]);
   

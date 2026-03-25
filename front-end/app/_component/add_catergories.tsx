@@ -24,7 +24,7 @@ export const AddCategories = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name: categoryName }),
+        body: JSON.stringify({ categoryName: categoryName }),
       });
       if (!response.ok) {
         throw new Error("Failed to add category");

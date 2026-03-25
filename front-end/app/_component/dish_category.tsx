@@ -31,7 +31,7 @@ export const DishCategory = ({
           className="bg-white text-black border hover:text-white"
           key={category._id}
         >
-          {category.name}
+          {category.categoryName}
         </Button>
       ))}
       <div>

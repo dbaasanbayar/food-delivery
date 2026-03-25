@@ -119,7 +119,7 @@ export const FoodEditButton = ({ food }: { food: DishType }) => {
               <SelectContent>
                 {categories.map((cat) => (
                   <SelectItem key={cat._id} value={cat._id}>
-                    {cat.name}
+                    {cat.categoryName}
                   </SelectItem>
                 ))}
               </SelectContent>

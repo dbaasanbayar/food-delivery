@@ -1,12 +1,12 @@
 type Props = {
-  setCurrentIndex: (index: number) => void;
+  setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
   currentIndex: number;
-  handleSubmit: any;
+  handleSubmit?: () => void;
 };
 export const ButtonForward = ({
   setCurrentIndex,
   currentIndex,
-  handleSubmit,
+  handleSubmit = () => {},
 }: Props) => {
   return (
     <div className="w-full">
