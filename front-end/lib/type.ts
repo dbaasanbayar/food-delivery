@@ -1,5 +1,5 @@
 export type CategoryType = {
-  name: string;
+  categoryName: string;
   number: number;
   _id: string;
   foods: DishType[];
