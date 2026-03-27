@@ -1,7 +1,7 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { StepProps } from "@/lib/type";
+import { ClientType, StepProps } from "@/lib/type";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
@@ -11,7 +11,7 @@ const stepTwoSchema = Yup.object({
     .min(6, "Нууц үг хамгийн багадаа 6 тэмдэгт байна")
     .required("Нууц үг оруулна уу"),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "Нууц үг таарахгүй байна") // ✅ 2 нууц үг таарч байна уу
+    .oneOf([Yup.ref("password")], "Нууц үг таарахгүй байна")
     .required("Нууц үгээ давтан оруулна уу"),
   phoneNumber: Yup.string()
     .required("Утасны дугаар оруулна уу"),
@@ -19,7 +19,11 @@ const stepTwoSchema = Yup.object({
     .required("Хаяг оруулна уу"),
 });
 
-export const StepTwo = ({ formData, setFormData, onSubmit }: StepProps & { onSubmit: () => void }) => {
+export const StepTwo = ({
+  formData,
+  setFormData,
+  onSubmit,
+}: StepProps & { onSubmit: (data: ClientType) => void }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const formik = useFormik({
@@ -31,18 +35,12 @@ export const StepTwo = ({ formData, setFormData, onSubmit }: StepProps & { onSub
     },
     validationSchema: stepTwoSchema,
     onSubmit: (values) => {
-      // ✅ formData-д хадгална
-      setFormData({
-        ...formData,
-        password: values.password,
-        phoneNumber: values.phoneNumber,
-        address: values.address,
-      });
-      // ✅ Backend руу илгээнэ
-      onSubmit();
-    },
+      const finalData = { ...formData, ...values };
+      setFormData(finalData);
+      onSubmit(finalData);
+    }
   });
-
+  
   return (
     <form onSubmit={formik.handleSubmit} className="flex flex-col gap-6 w-full">
       <div>
@@ -71,7 +69,6 @@ export const StepTwo = ({ formData, setFormData, onSubmit }: StepProps & { onSub
             <p className="text-sm text-red-500">{formik.errors.password}</p>
           )}
         </div>
-
         {/* Confirm Password */}
         <div className="flex flex-col gap-1.5">
           <Label className="text-sm font-medium text-[#09090B]">Confirm Password</Label>
@@ -88,11 +85,11 @@ export const StepTwo = ({ formData, setFormData, onSubmit }: StepProps & { onSub
             <p className="text-sm text-red-500">{formik.errors.confirmPassword}</p>
           )}
         </div>
-
         {/* Phone Number */}
         <div className="flex flex-col gap-1.5">
           <Label className="text-sm font-medium text-[#09090B]">Phone Number</Label>
           <Input
+            type="tel"
             name="phoneNumber"
             placeholder="99999999"
             value={formik.values.phoneNumber}
@@ -104,7 +101,6 @@ export const StepTwo = ({ formData, setFormData, onSubmit }: StepProps & { onSub
             <p className="text-sm text-red-500">{formik.errors.phoneNumber}</p>
           )}
         </div>
-
         {/* Address */}
         <div className="flex flex-col gap-1.5">
           <Label className="text-sm font-medium text-[#09090B]">Address</Label>

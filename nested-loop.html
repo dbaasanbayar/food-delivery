@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <pre id="output"></pre>
+    <script>
+
+        // * * * *
+        // * * * *
+        // * * * *
+        // * * * *
+
+        const n = 4;
+        let result = "";
+
+        for (let row = 1; row<=n; row++) {
+            for (let i = 1; i <=n; i++) {
+                if (row == 1 || row == n || i == 1 || i == n ){
+                    result = result + "* "
+                } else {
+                    result = result +"  ";
+                }
+        }
+        result = result +"\n"
+        } 
+
+        document.getElementById("output").innerText = result;
+    
+    </script>
+
+    
+</body>
+</html>

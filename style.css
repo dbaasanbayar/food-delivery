@@ -1,0 +1,8 @@
+.filterButton {
+  height: 60px;
+}
+
+.filterButton button {
+  width: 50%;
+  height: 100%;
+}

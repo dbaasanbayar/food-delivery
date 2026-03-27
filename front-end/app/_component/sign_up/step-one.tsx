@@ -16,9 +16,10 @@ export const StepOne = ({ formData, setFormData, onNext }: StepProps & { onNext:
     initialValues: { email: formData.email },
     validationSchema: stepOneSchema,
     onSubmit: (values) => {
-      // ✅ formData-д хадгална
-      setFormData({ ...formData, email: values.email });
-      // ✅ Step 2 руу шилжинэ
+      setFormData((prev) => ({
+        ...prev,
+        email: values.email,
+      }));
       onNext();
     },
   });

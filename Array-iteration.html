@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const students = [
+        { name: "bob", age: 29 },
+        { name: "robert", age: 40 },
+        { name: "bat", age: 19 },
+      ];
+      const ages = [100, 110, 4, 40, 12, 33, 50, 20, 18];
+      
+      const sortedAges = ages.sort((a, b) => a - b);
+      const sortedStudents = students.sort((a, b) => a.age - b.age);
+      const sortedStudentsByName = students.sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+
+      for (let i = 0; i < ages.length; i++) {}
+
+      const agesAfter10 = ages.map((age) => age + 100);
+
+      console.log(ages);
+      console.log(agesAfter10);
+    </script>
+  </body>
+</html>

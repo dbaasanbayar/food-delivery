@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="bat"></div>
+    <script>
+      let message = "Hello";
+      const pi = 3.14;
+      message = "hi";
+      let read = "message";
+      if (false) {
+        console.log(message);
+        console.log(pi);
+        console.log(read);
+      }
+
+      //   const nas = 22;
+      //   if (nas >= 21) {
+      //     console.log("Welcome");
+      //   }
+
+      //   const ageInput = prompt("Nas?");
+      //   const age = Number(ageInput);
+      //   if (age >= 21) {
+      //     console.log("Welcome");
+      //   }
+      //   if (age < 21) {
+      //     console.log("bye");
+      //   }
+      //   let result = "";
+      //   const battery = 120;
+      //   if (battery < 20) {
+      //     console.log("pls charge your phone");
+      //     result = "pls charge your phone";
+      //   } else {
+      //     result = "baijii baijii";
+      //   }
+      //   document.getElementById("bat").innerHTML = result;
+
+      //   const isNight = true;
+      //   if (isNight) {
+      //     console.log("Gerlee asaa");
+      //   }
+
+      //   const inputNumber = prompt("too");
+      //   const too = Number(inputNumber);
+      //   if (too % 2 === 0) {
+      //     result = "even";
+      //   } else {
+      //     result = "odd";
+      //   }
+      //   console.log(result);
+      //   document.getElementById("bat").innerHTML = result;
+
+      //<13-child, 13-19- teen, 20-64-Adult, 65+ Senior
+
+      // const inputAge = prompt("nas");
+      // const age = Number(inputAge);
+      // let output = "";
+      // if (age < 13) {
+      //   output = "child";
+      // } else if (age >= 13 && age <= 19) {
+      //   output = "teen";
+      // } else if (age >= 20 && age <= 64) {
+      //   output = "adult";
+      // } else output = "senior";
+
+      // console.log(output);
+
+      function leapYear() {
+        const input1 = prompt("Enter a year");
+        const year = Number(input1);
+
+        if (year % 100 === 0) {
+          if (year % 400 === 0) {
+            output = "Leap year";
+          } else {
+            output = "not leap year";
+          }
+        } else {
+          if (year % 4 === 0) {
+            output = "leap year";
+          } else {
+            output = "not leap year";
+          }
+        }
+        console.log(output);
+      }
+      leapYear();
+
+      function traingleChecker() {
+        const side1 = prompt("a");
+        const side2 = prompt("b");
+        const side3 = prompt("c");
+
+        const a = Number(side1);
+        const b = Number(side2);
+        const c = Number(side3);
+
+        let max = 0;
+
+        if (a > max) {
+          max = a;
+        }
+        if (b > max) {
+          max = b;
+        }
+        if (c > max) {
+          max = c;
+        }
+
+        const sum = a + b + c;
+        const sumMin2 = sum - max;
+
+        if (max > sumMin2) {
+          output = "Invalid triangle";
+          console.log(output);
+        } else if (a === b && c === b) {
+          output = "Equilateral";
+        } else if (a === b || a === c || c === b) {
+          output = "Isosceles";
+        } else {
+          output = "Scalene";
+        }
+        console.log(max);
+      }
+      traingleChecker();
+    </script>
+  </body>
+</html>

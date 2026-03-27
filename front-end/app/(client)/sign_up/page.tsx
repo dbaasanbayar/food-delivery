@@ -6,6 +6,12 @@ import {StepOne} from "@/app/_component/sign_up/step-one"
 import { baseUrl, ClientType } from "@/lib/type";
 import { useRouter } from "next/navigation";
 
+export interface StepProps {
+  formData: ClientType;
+  setFormData: React.Dispatch<React.SetStateAction<ClientType>>;
+  onSubmit?: (data: ClientType) => void; 
+}
+
 export default function SignUp() {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -17,6 +23,7 @@ export default function SignUp() {
   });
 
   const signup = async (data: ClientType) => {
+    console.log("PAYLOAD:", data); 
     const res = await fetch(`${baseUrl}/user/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -26,18 +33,17 @@ export default function SignUp() {
     return res.json();
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (data: ClientType) => {
     try {
-      const result = await signup(formData);
+      const result = await signup(data);
       console.log("Signup success:", result);
-      router.push("/login"); // ✅ window.location → router.push болгов
+      router.push("/sign_in"); 
     } catch (error) {
       console.error(error);
       alert("Signup амжилтгүй боллоо");
     }
   };
 
-  // ✅ ButtonForward/Backward устгаж, step-ийг component өөрөө удирдана
   return (
     <div className="flex flex-col lg:flex-row w-full min-h-screen items-center bg-white">
       <div className="flex flex-col w-full lg:w-1/2 px-6 py-10 justify-center">
@@ -47,7 +53,7 @@ export default function SignUp() {
             <StepOne
               formData={formData}
               setFormData={setFormData}
-              onNext={() => setCurrentIndex(1)} // ✅ Step 2 руу
+              onNext={() => setCurrentIndex(1)} 
             />
           )}
 
@@ -55,7 +61,7 @@ export default function SignUp() {
             <StepTwo
               formData={formData}
               setFormData={setFormData}
-              onSubmit={handleSubmit} // ✅ Backend руу илгээнэ
+              onSubmit={handleSubmit}
             />
           )}
 

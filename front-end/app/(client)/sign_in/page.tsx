@@ -4,9 +4,6 @@ import Link from "next/link";
 import { LoginStepOne } from "@/app/_component/sign-in/sign-in";
 
 export default function Login() {
-  // ButtonForward, ButtonBackward УСТГАНА
-  // Учир нь шилжилтийг LoginStepOne өөрөө хийнэ
-
   return (
     <div className="flex w-full flex-col bg-white lg:flex-row px-6 py-10 sm:px-12 min-h-screen items-center">
       <div className="flex flex-col justify-center w-full lg:w-[40%]">

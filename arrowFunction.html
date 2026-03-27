@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+
+    <table>
+        <thead>
+            <th>name</th>
+            <th>surname</th>
+            <th>age</th>
+            <th>email</th>
+            <th>hobbies</th>
+            <th>scores</th>
+            <th>username</th>
+            <th>school</th>
+            <tbody id="studentList">
+            </tbody>
+        </thead>
+    </table>
+ 
+
+    <script>
+      const students = [
+        {
+          name: "Bat-Erdene",
+          surname: "Ganbaatar",
+          email: "GBat-Erdene@example.mn",
+          age: 29,
+          hobbies: "Basketball",
+          scores: [34, 56, 67, 34],
+          username: "bat-erdene.g",
+          school: "Empathy",
+        },
+        {
+          name: "Enkhbayar",
+          surname: "Sukhbaatar",
+          email: "SEnkhbayar@example.mn",
+          age: 22,
+          hobbies: "Basketball",
+          scores: [34, 56, 67, 34],
+          username: "Enkhbayar.s",
+          school: "",
+        },
+        {
+          name: "Tuvshinbayar",
+          surname: "Batbaatar",
+          email: "BTuvshinbayar@example.mn",
+          age: 24,
+          hobbies: "Basketball",
+          scores: [34, 56, 67, 34],
+          username: "tuvshinbayar.b",
+          school: "school 1",
+        },
+      ];
+
+      function generateTableRow(students) {
+
+        const result = `<tr><td>${students.name}</td>
+            <td>${students.surname}</td>
+            <td>${students.age}</td>
+            <td>${students.email}</td>
+            <td>${students.hobbies}</td>
+            <td>${students.scores}</td>
+            <td>${students.username}</td>
+            <td>${students.school}</td></tr>`;
+        return result;
+      }
+
+function printAll(){
+
+let output = "";
+
+for (let i = 0; i < students.length; i ++);
+{
+    output += generateTableRow(i ,students[i]) 
+}
+
+      }
+     
+      printAll()
+
+
+      document.getElementById("studentList").innerHTML = output;
+    </script>
+  </body>
+</html>
