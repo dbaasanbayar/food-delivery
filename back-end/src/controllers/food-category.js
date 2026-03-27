@@ -2,11 +2,17 @@ import { FoodCategoryModel } from "../models/food-category.js";
 
 export const createCategory = async (req, res) => {
   try {
+    const { categoryName } = req.body;
+
+    if (!categoryName) {
+      return res.status(400).json({message: "categoryName required"});
+    }
+    
     const existingCategory = await FoodCategoryModel.findOne({ categoryName });
     if (existingCategory) {
       return res.status(400).json({message: "Энэ категори аль хэдийн байна."})
     }
-    const newCategory = await FoodCategoryModel.create({categoryName});
+    const newCategory = await FoodCategoryModel.create({ categoryName });
     res.status(201).json({ message: "Категори амжилттай үүсгэгдлээ", data: newCategory })
   } catch (error) { 
     res.status(500).json({ message: "Алдаа гарлаа", error: error.message
