@@ -1,7 +1,10 @@
 import { Router } from "express";
-import { signIn, signUp } from "../controllers/user.js";
+import { forgotPassword, resetPassword, signIn, signUp, verifyOTP } from "../controllers/user.js";
 
 export const userRouter = Router();
 
 userRouter.post("/signin", signIn);
 userRouter.post("/signup", signUp);
+userRouter.post("/forgot-password", forgotPassword);
+userRouter.post("/verify-otp", verifyOTP);
+userRouter.post("/reset-password", resetPassword);
