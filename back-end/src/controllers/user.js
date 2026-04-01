@@ -30,37 +30,34 @@ export const signUp = async (req, res) => {
 export const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const result = await UserModel.findOne({
-      email,
-    });
-    console.log("REsult",result.password)
-    console.log(typeof result.password)
+
+    const result = await UserModel.findOne({ email });
+
     if (!result) {
-      console.log("result is false: user does not exist");
       return res.status(401).json({ message: "user does not exist" });
     }
-    const cleanPassword = password.trim();
-    const isMatch = await bcrypt.compare(cleanPassword, result.cleanPassword);
-    console.log("Нууц үг таарч байна уу?:", isMatch);
-    
+
+    // ✅ result.password байх ёстой
+    const isMatch = await bcrypt.compare(password, result.password);
+
     if (!isMatch) {
-      console.log("Нууц үг буруу байна!");
       return res.status(401).json({ message: "password does not match" });
     }
 
     const token = jwt.sign(
-      { email: result.email,
+      {
+        _id: result._id,      
+        email: result.email,
         role: result.role,
-      }, "secret-key", {
-      expiresIn: "1h",
-    });
-    console.log(result);
-    console.log("Token awah:", token);
+      },
+      "secret-key",
+      { expiresIn: "1h" }
+    );
 
     res.json({ email: result.email, token });
   } catch (error) {
     console.error("signIn error", error);
-    res.send(error);
+    res.status(500).json({ message: "Алдаа гарлаа", error });
   }
 };
 
@@ -138,28 +135,39 @@ export const verifyOTP = async (req, res) => {
 export const resetPassword = async (req, res) => {
   try {
     const { email, otp, newPassword } = req.body;
-
     const stored = otpStore.get(email);
 
-    // OTP дахин шалгана
-    if (!stored || stored.otp !== otp || Date.now() > stored.expiresAt) {
-      return res.status(400).json({ message: "OTP хүчингүй байна" });
+    if (!stored) {
+      return res.status(400).json({ message: "OTP олдсонгүй" });
+    }
+    if (Date.now() > stored.expiresAt) {
+      otpStore.delete(email);
+      return res.status(400).json({ message: "OTP хугацаа дууссан" });
+    }
+    if (stored.otp !== otp) {
+      return res.status(400).json({ message: "OTP буруу байна" });
     }
 
-    // Шинэ нууц үг hash хийнэ
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    // Database-д шинэчлэнэ
-    await UserModel.findOneAndUpdate(
+    const updated = await UserModel.findOneAndUpdate(
       { email },
-      { password: hashedPassword }
+      { password: hashedPassword },
+      { new: true } // ✅ шинэчлэгдсэн document буцаана
     );
 
-    // OTP устгана
+    console.log("Шинэчлэгдсэн хэрэглэгч:", updated); // terminal шалгана
+
+    if (!updated) {
+      return res.status(404).json({ message: "Хэрэглэгч олдсонгүй" });
+    }
+
     otpStore.delete(email);
 
     res.json({ message: "Нууц үг амжилттай солигдлоо" });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Алдаа гарлаа", error });
   }
 };
+
