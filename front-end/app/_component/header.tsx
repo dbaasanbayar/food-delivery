@@ -1,8 +1,22 @@
+"use client";
 import { Logo } from "../_assets/logo";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useCart } from "../contexts/CartContext";
+import { CartSidebar } from "./CartSidebar";
 
 export function Header() {
+  const router = useRouter();
+  const { totalItems } = useCart();
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const handleSignOut = () => {
+    localStorage.removeItem("token");
+    router.push("/sign_in");
+  };
+
   return (
-    <div>
+    <>
       <div className="bg-[#18181B] w-full flex justify-between px-10 py-2">
         <div className="flex items-center gap-2">
           <Logo />
@@ -18,12 +32,33 @@ export function Header() {
             <span className="text-red-300">Delivery address:</span>
             <span>Add location</span>
           </div>
-          <img src="/images/avatar_image.png" alt="" />
+
+          {/* ✅ Cart icon */}
+          <button
+            onClick={() => setCartOpen(true)}
+            className="relative text-white"
+          >
+            🛒
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </button>
+
+          {/* Sign Out */}
+          <button
+            onClick={handleSignOut}
+            className="text-white text-sm border border-white rounded-full hover:bg-white hover:opacity-50 transition-all"
+          >
+            <img src="/images/avatar_image.png" alt="" />
+          </button>
+
         </div>
       </div>
-      <div>
-        <img src="/images/homepage-cover.png" alt="" />
-      </div>
-    </div>
+
+      {/* ✅ Cart Sidebar */}
+      {cartOpen && <CartSidebar onClose={() => setCartOpen(false)} />}
+    </>
   );
 }

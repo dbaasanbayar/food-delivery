@@ -47,3 +47,39 @@ export const signUpApi = async ({ email, password, phoneNumber, address }: SignU
 
   return data;
 };
+
+// Forgot Password
+export const forgotPasswordApi = async ({ email }: { email: string }) => {
+  const response = await fetch(`${baseUrl}/user/forgot-password`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.message);
+  return data;
+};
+
+// Verify OTP
+export const verifyOTPApi = async ({ email, otp }: { email: string; otp: string }) => {
+  const response = await fetch(`${baseUrl}/user/verify-otp`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, otp }),
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.message);
+  return data;
+};
+
+// Reset Password
+export const resetPasswordApi = async ({ email, otp, newPassword }: { email: string; otp: string; newPassword: string }) => {
+  const response = await fetch(`${baseUrl}/user/reset-password`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, otp, newPassword }),
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.message);
+  return data;
+};

@@ -47,10 +47,10 @@ export const LoginStepOne = () => {
       <div className="flex flex-col gap-6 w-full max-w-md mx-auto lg:mx-0">
         <div>
           <h1 className="text-[#09090B] font-inter text-2xl font-semibold sm:text-3xl tracking-tight">
-            Log in
+            Sign in
           </h1>
           <p className="text-[#71717A] text-base font-inter font-normal">
-            Log in to enjoy your favorite dishes.
+            Sign in to enjoy your favorite dishes.
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export const LoginStepOne = () => {
           disabled={formik.isSubmitting}
           className="w-full h-10 bg-black text-white rounded-md"
         >
-          {formik.isSubmitting ? "Түр хүлээнэ үү..." : "Log in"}
+          {formik.isSubmitting ? "Түр хүлээнэ үү..." : "Sign in"}
         </button>
       </div>
     </form>
