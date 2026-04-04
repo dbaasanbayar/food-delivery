@@ -171,3 +171,17 @@ export const resetPassword = async (req, res) => {
   }
 };
 
+// Хэрэглэгчийн мэдээлэл авах
+export const getUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await UserModel.findById(userId).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "Хэрэглэгч олдсонгүй" });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Алдаа гарлаа", error });
+  }
+};
+
