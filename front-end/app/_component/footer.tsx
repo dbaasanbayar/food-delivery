@@ -1,6 +1,23 @@
+import { useEffect, useState } from "react";
 import { Logo } from "../_assets/logo";
+import { DishType, baseUrl } from "@/lib/type";
 
 export function Footer() {
+  const [foods, setFoods] = useState<DishType[]>([]);
+  useEffect(() => {
+    const fetchFoods = async () => {
+      try {
+        const response = await fetch(`${baseUrl}/food`);
+        const data = await response.json();
+        setFoods(data); 
+      } catch (error) {
+        console.error("Өгөгдөл татахад алдаа гарлаа:", error)
+      }
+    };
+    fetchFoods(); 
+  }, [])
+
+
   return (
     <div className="flex py-10 flex-col text-white bg-black overflow-hidden">
       <div className="flex bg-red-300 overflow-hidden md:py-5 border-y">
@@ -47,8 +64,10 @@ export function Footer() {
           <div>
             <h1 className="font-bold mb-3 text-red-300">MENU</h1>
             <ul className="space-y-2 text-gray-300 text-sm">
-              <li>Pizza</li>
-            </ul>
+          {foods.map((food) => (
+            <li key={food._id}>{food.name}</li>
+          ))}
+        </ul>
           </div>
           <div className="flex flex-col">
             <h1 className="font-bold mb-3 text-red-300 uppercase">FOLLOW US</h1>

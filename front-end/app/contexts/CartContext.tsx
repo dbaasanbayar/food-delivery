@@ -18,13 +18,15 @@ type CartContextType = {
   totalPrice: number;
   totalItems: number;
   clearCart: () => void;
+  deliveryAddress: string;           // ✅ нэмэх
+  setDeliveryAddress: (address: string) => void; // ✅ нэмэх
 };
 
 const CartContext = createContext<CartContextType>({} as CartContextType);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-
+  const [deliveryAddress, setDeliveryAddress] = useState("");
   // ✅ Хоол нэмэх
   const addToCart = (food: DishType) => {
     setCartItems((prev) => {
@@ -83,19 +85,21 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <CartContext.Provider
-      value={{
-        cartItems,
-        addToCart,
-        removeFromCart,
-        increaseQuantity,
-        decreaseQuantity,
-        totalPrice,
-        totalItems,
-        clearCart,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
+  value={{
+    cartItems,
+    addToCart,
+    removeFromCart,
+    increaseQuantity,
+    decreaseQuantity,
+    totalPrice,
+    totalItems,
+    clearCart,
+    deliveryAddress,        
+    setDeliveryAddress,   
+  }}
+>
+  {children}
+</CartContext.Provider>
   );
 };
 

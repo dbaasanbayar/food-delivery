@@ -24,13 +24,18 @@ export const LoginStepOne = () => {
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
         const data = await signInApi({ email: values.email, password: values.password });
-
+    
         localStorage.setItem("token", data.token);
-
-        router.push("/");
-
+    
+        // ✅ Role шалгаж redirect хийнэ
+        const payload = JSON.parse(atob(data.token.split(".")[1]));
+        if (payload.role === "ADMIN") {
+          router.push("/food");
+        } else {
+          router.push("/");
+        }
+    
       } catch (error: any) {
-
         if (error.message === "user does not exist") {
           setErrors({ email: "Энэ email бүртгэлгүй байна" });
         } else if (error.message === "password does not match") {
